@@ -9,8 +9,15 @@ class Obstacle:
         self.position = self.initialize_position()
 
     def initialize_position(self):
-        """
-        Randomly places the obstacle on the grid.
+        """Randomly places the obstacle on the grid.
+
+        This method selects a random position on the grid where the obstacle can
+        be placed. It ensures that the obstacle fits within the boundaries of
+        the grid by checking the dimensions of the grid against the size of the
+        obstacle. The selected position is then marked on the grid.
+
+        Returns:
+            tuple: A tuple containing the x and y coordinates of the obstacle's position.
         """
         x = random.randint(0, self.grid.shape[0] - self.size)
         y = random.randint(0, self.grid.shape[1] - self.size)
@@ -18,8 +25,13 @@ class Obstacle:
         return (x, y)
 
     def regenerate(self):
-        """
-        Randomly repositions the obstacle to create a new configuration.
+        """Randomly reposition the obstacle to create a new configuration.
+
+        This method clears the previous position of the obstacle on the grid and
+        generates a new random position within the bounds of the grid. The size
+        of the obstacle is taken into account to ensure that it fits within the
+        grid dimensions. The new position is then updated in the grid and stored
+        as the current position of the obstacle.
         """
         x, y = self.position
         self.grid[x:x+self.size, y:y+self.size] = 0  # Clear previous position
@@ -31,8 +43,21 @@ class Obstacle:
         self.position = (x, y)
 
 def generate_circular_obstacle(grid, radius):
-    """
-    Generates a circular obstacle in the grid.
+    """Generate a circular obstacle in the grid.
+
+    This function randomly selects a center point within the grid and
+    creates a circular obstacle with a specified radius. The obstacle is
+    represented by setting the corresponding grid cells to 1, indicating the
+    presence of an obstacle. The center of the circle is chosen such that it
+    does not exceed the boundaries of the grid.
+
+    Args:
+        grid (numpy.ndarray): A 2D array representing the grid where
+            the obstacle will be generated.
+        radius (int): The radius of the circular obstacle to be created.
+
+    Returns:
+        None: This function modifies the input grid in place.
     """
     center_x = random.randint(radius, grid.shape[0] - radius)
     center_y = random.randint(radius, grid.shape[1] - radius)
