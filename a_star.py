@@ -10,6 +10,20 @@ class AStar:
         self.directions = [(0, 1), (1, 0), (0, -1), (-1, 0), (1, 1), (-1, 1), (1, -1), (-1, -1)]
 
     def search(self):
+        """Perform a search algorithm to find the shortest path from the start to
+        the goal.
+
+        This function implements a search algorithm that explores possible paths
+        in a grid to find the shortest route from a starting point to a goal
+        point. It uses a set to keep track of open nodes, calculates scores for
+        each node based on distance and heuristic, and reconstructs the path
+        once the goal is reached. The function continues until it either finds
+        the goal or exhausts all possibilities.
+
+        Returns:
+            list: The reconstructed path from start to goal if found, otherwise None.
+        """
+
         open_set = set()
         open_set.add(self.start)
         came_from = {}
@@ -47,6 +61,23 @@ class AStar:
         return 0 <= pos[0] < self.height and 0 <= pos[1] < self.width
 
     def reconstruct_path(self, came_from, current):
+        """Reconstruct a path from the given mapping of nodes.
+
+        This function takes a dictionary that maps each node to its predecessor
+        and reconstructs the path from the starting node to the current node. It
+        iteratively follows the predecessors until it reaches the starting node,
+        collecting the nodes along the way. The resulting path is returned in
+        the correct order from start to end.
+
+        Args:
+            came_from (dict): A dictionary mapping each node to its predecessor.
+            current: The current node from which to reconstruct the path.
+
+        Returns:
+            list: A list representing the reconstructed path from the start node to the
+                current node.
+        """
+
         path = []
         while current in came_from:
             path.append(current)
